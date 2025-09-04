@@ -1,0 +1,12 @@
+# Ignore build directories and build artifacts
+dist/
+build/
+app-dist.zip
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+
+# OS generated files
+.DS_Store
+Thumbs.db
