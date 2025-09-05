@@ -1,9 +1,9 @@
 name: Build Windows exe
 
 on:
-  workflow_dispatch:  # allows you to trigger manually
+  workflow_dispatch:   # manual trigger
   push:
-    branches: [ main ]  # or your default branch
+    branches: [ main ] # auto trigger on main branch
 
 jobs:
   build-windows:
@@ -24,18 +24,13 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: Build exe with PyInstaller
-        run: |
-          pyinstaller --onefile --name NikeOrderApp `
-            --add-data "app.py;." `
-            --add-data "data;data" `
-            --add-data "filtered_summary.xlsx;." `
-            launcher.py
+      - name: Build exe with PyInstaller (using spec file)
+        run: pyinstaller NikeOrderApp.spec
 
-      - name: Package exe into zip
+      - name: Package exe + data into zip
         shell: powershell
         run: |
-          Compress-Archive -Path dist\NikeOrderApp.exe -DestinationPath NikeOrderApp-windows.zip -Force
+          Compress-Archive -Path dist\NikeOrderApp\* -DestinationPath NikeOrderApp-windows.zip -Force
 
       - name: Upload zip artifact
         uses: actions/upload-artifact@v4
