@@ -6,37 +6,48 @@
   <title>Nike Order Summary App</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
       text-align: center;
-      padding: 50px;
-      background-color: #f4f4f4;
+      padding: 60px;
     }
     h1 {
-      color: #333;
+      font-size: 2.5em;
+      color: #222;
     }
     p {
       font-size: 1.2em;
       color: #555;
+      max-width: 600px;
+      margin: 20px auto;
     }
     a.button {
       display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
-      background-color: #0072ff;
+      margin-top: 30px;
+      padding: 14px 28px;
+      background-color: #0078D4;
       color: white;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 1em;
       font-weight: bold;
     }
     a.button:hover {
-      background-color: #0057cc;
+      background-color: #005a9e;
+    }
+    footer {
+      margin-top: 60px;
+      font-size: 0.9em;
+      color: #888;
     }
   </style>
 </head>
 <body>
   <h1>📦 Nike Order Summary Extractor</h1>
-  <p>Upload your Nike order files and get a clean summary by color and size.</p>
-  <a class="button" href="https://nike-order-summary.streamlit.app" target="_blank">Launch App</a>
-  <p style="margin-top: 40px;">Made by <a href="https://github.com/jaichanli" target="_blank">Jai Chanli</a></p>
+  <p>Upload your Nike order files and instantly generate a clean summary by color, size, and quantity. Built for speed, simplicity, and clarity.</p>
+  <a class="button" href="https://nike-order-summary.streamlit.app" target="_blank">Launch the App</a>
+  <footer>
+    Made by <a href="https://github.com/jaichanli" target="_blank">Jai Chanli</a> • Powered by Streamlit & GitHub
+  </footer>
 </body>
 </html>
