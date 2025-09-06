@@ -1,39 +1,45 @@
-name: Build Windows exe
+name: Build Windows EXE
 
 on:
-  workflow_dispatch:   # manual trigger
+  workflow_dispatch:
   push:
-    branches: [ main ] # auto trigger on main branch
+    branches: [main]
 
 jobs:
   build-windows:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pyinstaller
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
 
-      - name: Build exe with PyInstaller (using spec file)
-        run: pyinstaller NikeOrderApp.spec
+    - name: Clean old build/dist folders
+      shell: powershell
+      run: |
+        if (Test-Path build) { Remove-Item -Recurse -Force build }
+        if (Test-Path dist) { Remove-Item -Recurse -Force dist }
 
-      - name: Package exe + data into zip
-        shell: powershell
-        run: |
-          Compress-Archive -Path dist\NikeOrderApp\* -DestinationPath NikeOrderApp-windows.zip -Force
+    - name: Build EXE from launcher.py
+      run: pyinstaller --onefile launcher.py
 
-      - name: Upload zip artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: NikeOrderApp-windows
-          path: NikeOrderApp-windows.zip
+    - name: Zip the EXE
+      shell: powershell
+      run: |
+        Compress-Archive -Path dist\launcher.exe -DestinationPath NikeOrderApp-windows.zip -Force
+
+    - name: Upload zip artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: NikeOrderApp-windows
+        path: NikeOrderApp-windows.zip
