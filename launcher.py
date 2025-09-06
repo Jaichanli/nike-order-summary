@@ -1,19 +1,18 @@
-import subprocess
-import sys
 import os
+import sys
+import subprocess
 
-def resource_path(relative_path: str) -> str:
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    if hasattr(sys, "_MEIPASS"):  # PyInstaller sets this
-        base_path = sys._MEIPASS
-    else:
-        base_path = os.path.abspath(".")
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller bundle."""
+    try:
+        base_path = sys._MEIPASS  # PyInstaller temp folder
+    except AttributeError:
+        base_path = os.path.dirname(os.path.abspath(sys.executable))
     return os.path.join(base_path, relative_path)
 
-def main():
-    app_path = resource_path("app.py")
-    cmd = [sys.executable, "-m", "streamlit", "run", app_path, "--server.port", "8501"]
-    subprocess.run(cmd)
+def run_streamlit_app():
+    script_path = resource_path("main.py")  # Replace with your actual Streamlit script name
+    subprocess.run(["streamlit", "run", script_path])
 
 if __name__ == "__main__":
-    main()
+    run_streamlit_app()
