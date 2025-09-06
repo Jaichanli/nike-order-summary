@@ -11,7 +11,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 def run_streamlit_app():
-    script_path = resource_path("main.py")  # Replace with your actual Streamlit script name
+    script_path = resource_path("app.py")  # Replace with your actual Streamlit script name
     subprocess.run(["streamlit", "run", script_path])
 
 if __name__ == "__main__":
